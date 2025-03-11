@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const authHeader = request.headers.authorization;
 
-    if (!authHeader || authHeader !== 'Basic a2hhdGVlYjpraGF0ZWVi') {
+    if (!authHeader || authHeader !== `Basic ${process.env.AUTH_SECRET}`) {
       throw new UnauthorizedException('Invalid authentication');
     }
 

@@ -19,7 +19,7 @@ import { AppService } from './app.service';
       password: process.env.DB_PASS || 'password',
       database: process.env.DB_NAME || 'nestdb',
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     SequelizeModule.forFeature([Account, Setting]),
     AccountsModule,

@@ -15,7 +15,14 @@ export class SettingsService {
 
     const strValue = String(value);
 
-    if (
+    if (data_type === 'json') {
+      try {
+        JSON.parse(strValue);
+      } catch (e) {
+        console.log(e);
+        throw new BadRequestException('Invalid JSON value');
+      }
+    } else if (
       (data_type === 'number' && isNaN(value)) ||
       (data_type === 'boolean' && !['true', 'false'].includes(strValue))
     ) {
