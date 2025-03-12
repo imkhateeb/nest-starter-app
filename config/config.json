@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "nestdb",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
