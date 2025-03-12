@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { AuthGuard } from '../auth/auth.guard';
+import { CreateSettingDto } from './dto/create-setting.dto';
+import { UpdateSettingDto } from './dto/update-setting.dto';
 
 @Controller('settings')
 export class SettingsController {
@@ -17,7 +19,7 @@ export class SettingsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async create(@Body() data: any) {
+  async create(@Body() data: CreateSettingDto) {
     return this.settingsService.createSetting(data);
   }
 
@@ -28,7 +30,7 @@ export class SettingsController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
-  async updateSetting(@Param('id') id: number, @Body() data: any) {
+  async updateSetting(@Param('id') id: number, @Body() data: UpdateSettingDto) {
     return this.settingsService.updateSetting(data, id);
   }
 

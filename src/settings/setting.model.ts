@@ -4,38 +4,27 @@ import {
   Model,
   DataType,
   ForeignKey,
-  BelongsTo,
 } from 'sequelize-typescript';
 import { Account } from '../accounts/account.model';
 
-enum DataTypeEnum {
-  STRING = 'string',
-  NUMBER = 'number',
-  BOOLEAN = 'boolean',
-  JSON = 'json',
-}
-
-@Table({ timestamps: true, paranoid: true })
+@Table({ tableName: 'settings', timestamps: true, paranoid: true })
 export class Setting extends Model {
   @Column({ primaryKey: true, autoIncrement: true, type: DataType.INTEGER })
   id: number;
 
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ allowNull: false, type: DataType.STRING })
   name: string;
 
   @Column({
-    type: DataType.ENUM(...Object.values(DataTypeEnum)),
     allowNull: false,
+    type: DataType.ENUM('string', 'number', 'boolean', 'json'),
   })
-  data_type: DataTypeEnum;
-
-  @Column({ type: DataType.STRING, allowNull: false })
-  value: string;
+  data_type: string;
 
   @ForeignKey(() => Account)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ allowNull: false, type: DataType.INTEGER })
   account_id: number;
 
-  @BelongsTo(() => Account)
-  account: Account;
+  @Column({ allowNull: false, type: DataType.STRING })
+  value: string;
 }
